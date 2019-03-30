@@ -1,0 +1,12 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model IEnumerable<CategoryDTO>
+
+<div>
+    @{
+        var parrentArray = Model.ToArray();
+        for (int i = parrentArray.Length - 1; i >= 0; i--)
+        {
+            @Html.ActionLink($"{parrentArray[i].CategoryName} > ", "Index", new { CategoryId = parrentArray[i].CategoryId })
+        }
+    }
+</div>

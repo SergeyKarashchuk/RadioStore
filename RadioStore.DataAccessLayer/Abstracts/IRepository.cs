@@ -8,7 +8,8 @@ namespace RadioStore.DataAccessLayer.Abstracts
 {
     public interface IRepository<T>
     {
-        void CreateOrUpdate(T obj);
+        void Create(T obj);
+        void Update(T obj);
         T Get(int id);
         IQueryable<T> GetAll();
         void Remove(T obj);

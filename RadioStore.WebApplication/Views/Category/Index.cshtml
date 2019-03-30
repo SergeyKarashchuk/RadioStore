@@ -1,0 +1,17 @@
+﻿@model int?
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+
+<div>
+    <h2>Categories</h2>
+    <div>
+        @{ Html.RenderAction("GetParrentsCategoryLinks", "Category", new { CategoryId = Model }); }
+    </div>
+    <div id="categoryList">
+        @{ Html.RenderAction("GetChildCategoryList", "Category", new { CategoryId = Model }); }
+    </div>
+
+</div>

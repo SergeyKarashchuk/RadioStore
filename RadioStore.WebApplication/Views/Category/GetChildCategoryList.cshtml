@@ -1,0 +1,27 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model IEnumerable<CategoryDTO>
+
+
+<div id="categoryList" class="card-group d-flex justify-content-center">  
+    
+    @foreach (var item in Model)
+    {
+        <div class="card text-center">
+            <div class="text-center">
+                <img src=@item.CategoryImage class="card-img-top categoryImg rounded">
+            </div>
+            <div class="card-body">
+
+
+                @Ajax.ActionLink(item.CategoryName,
+                                    "GetChildCategoryList",
+                                    new { CategoryId = item.CategoryId },
+                                    new AjaxOptions()
+                                    {
+                                        UpdateTargetId = "categoryList",
+                                        InsertionMode = InsertionMode.Replace
+                                    })
+            </div>
+        </div>
+    }
+</div>

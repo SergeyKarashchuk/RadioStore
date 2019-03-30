@@ -31,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,10 +52,78 @@
   <ItemGroup>
     <Compile Include="Abstracts\IRepository.cs" />
     <Compile Include="Abstracts\IUnitOfWork.cs" />
+    <Compile Include="Concrete\CartItemRepository.cs" />
+    <Compile Include="Concrete\CartRepository.cs" />
+    <Compile Include="Concrete\CategoryRepository.cs" />
+    <Compile Include="Concrete\NewsRepository.cs" />
+    <Compile Include="Concrete\PriceCountRepository.cs" />
+    <Compile Include="Concrete\PriceProductRepository.cs" />
+    <Compile Include="Concrete\ProductRepository.cs" />
+    <Compile Include="Concrete\UnitOfWork.cs" />
+    <Compile Include="Entities\Cart.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CartItem.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Category.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFSportStore.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFSportStore.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFSportStore.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFSportStore.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFSportStore.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\News.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PriceCount.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PriceProduct.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Product.cs">
+      <DependentUpon>EFSportStore.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Concrete\" />
+    <EntityDeploy Include="Entities\EFSportStore.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFSportStore.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="Entities\EFSportStore.edmx.diagram">
+      <DependentUpon>EFSportStore.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\EFSportStore.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFSportStore.edmx</DependentUpon>
+      <LastGenOutput>EFSportStore.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\EFSportStore.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFSportStore.edmx</DependentUpon>
+      <LastGenOutput>EFSportStore.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

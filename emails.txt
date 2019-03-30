@@ -1,0 +1,7 @@
+sportstoreadmin@ukr.net - main admin for RadioStore
+ssadmin123
+
+sstestuser@ukr.net - test user for RadioStore
+ssuser123
+
+
