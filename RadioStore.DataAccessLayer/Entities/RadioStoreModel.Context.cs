@@ -25,12 +25,14 @@ namespace RadioStore.DataAccessLayer.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<PriceCount> PriceCounts { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<PriceProduct> PriceProducts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductSpecification> ProductSpecifications { get; set; }
+        public virtual DbSet<SpecificationType> SpecificationTypes { get; set; }
     }
 }

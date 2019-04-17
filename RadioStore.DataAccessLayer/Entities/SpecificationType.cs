@@ -12,23 +12,20 @@ namespace RadioStore.DataAccessLayer.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class SpecificationType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public SpecificationType()
         {
-            this.Products = new HashSet<Product>();
-            this.SpecificationTypes = new HashSet<SpecificationType>();
+            this.ProductSpecifications = new HashSet<ProductSpecification>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public string CategoryImage { get; set; }
-        public Nullable<int> CategoryParentId { get; set; }
+        public int SpecificationTypeId { get; set; }
+        public string SpecificationName { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SpecificationType> SpecificationTypes { get; set; }
+        public virtual ICollection<ProductSpecification> ProductSpecifications { get; set; }
     }
 }

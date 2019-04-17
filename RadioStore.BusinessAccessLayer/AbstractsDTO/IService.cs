@@ -10,6 +10,8 @@ namespace RadioStore.BusinessAccessLayer.AbstractsDTO
     {
         IQueryable<T> GetAll();
         void Add(T obj);
+        void Update(T obj);
+        void Remove(T obj);
         T Get(int? id);
     }
 }

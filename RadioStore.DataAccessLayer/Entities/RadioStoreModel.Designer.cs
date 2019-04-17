@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\1_My\ITstep\ASP.NET\home_work\RadioStore\RadioStore.DataAccessLayer\Entities\EFSportStore.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\1_My\ITstep\ASP.NET\home_work\RadioStore\RadioStore.DataAccessLayer\Entities\RadioStoreModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

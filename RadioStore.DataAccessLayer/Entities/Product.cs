@@ -19,17 +19,21 @@ namespace RadioStore.DataAccessLayer.Entities
         {
             this.CartItems = new HashSet<CartItem>();
             this.PriceProducts = new HashSet<PriceProduct>();
+            this.ProductSpecifications = new HashSet<ProductSpecification>();
         }
     
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
+        public bool IsProductPublished { get; set; }
         public Nullable<int> CategoryId { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PriceProduct> PriceProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductSpecification> ProductSpecifications { get; set; }
     }
 }

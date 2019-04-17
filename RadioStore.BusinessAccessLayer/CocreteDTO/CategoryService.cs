@@ -16,12 +16,7 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
         public CategoryService(IUnitOfWork uof)
         {
             this.uof = uof;
-        }
-
-        public void Add(CategoryDTO obj)
-        {
-            throw new NotImplementedException();
-        }
+        }      
 
         public CategoryDTO Get(int? id)
         {
@@ -41,6 +36,21 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
                                     ParentCategoryId = x.CategoryParentId
                                 });
             return list;
-        }        
+        }
+
+        public void Add(CategoryDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(CategoryDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(CategoryDTO obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

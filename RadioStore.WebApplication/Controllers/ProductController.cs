@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RadioStore.BusinessAccessLayer.AbstractsDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,19 @@ namespace RadioStore.WebApplication.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
-        public ActionResult Index(int CategoryId)
+        private IUnitOfWorkDTO uof;
+        public ProductController(IUnitOfWorkDTO uof)
         {
-            return View();
+            this.uof = uof;
+        }
+
+        // GET: Product
+        public ActionResult Index(int? CategoryId = null)
+        {
+            var list = uof.Products.GetAll()
+                            .Where(x => x.CategoryId == CategoryId)
+                            .ToList();
+            return View(list);
         }
     }
 }

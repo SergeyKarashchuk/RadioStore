@@ -47,9 +47,12 @@
     <Compile Include="AbstractsDTO\IService.cs" />
     <Compile Include="AbstractsDTO\IUnitOfWorkDTO.cs" />
     <Compile Include="CocreteDTO\CategoryService.cs" />
+    <Compile Include="CocreteDTO\ProductService.cs" />
     <Compile Include="CocreteDTO\UnitOfWorkDTO.cs" />
     <Compile Include="Infrastructure\RadioShopDependencyInjectionModule.cs" />
     <Compile Include="ModelsDTO\CategoryDTO.cs" />
+    <Compile Include="ModelsDTO\ProductDTO.cs" />
+    <Compile Include="ModelsDTO\PriceProductDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

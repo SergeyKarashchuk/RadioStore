@@ -1,7 +1,57 @@
-﻿
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model IEnumerable<ProductDTO>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product";
 }
 
-<h2>@ViewBag.Title</h2>
-
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Manufacturer</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p class="text-xl-center">@item.ProductName</p>
+                    </td>
+                    <td>
+                        <div class="product_img_for_table_s">                            
+                            <img class="img-thumbnail img-fluid" src=@item.ProductImage alt="No image"/>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="text-md-center">@item.Manufacturer</p>
+                    </td>
+                    <td>
+                        <p class="text-md-center">@item.Description</p>
+                    </td>
+                    <td>
+                        <table class="table table-borderless text-sm-center">
+                            <tbody>
+                                @foreach (var p in item.Prices)
+                                {
+                                    <tr>
+                                        <td>
+                                            <p>@p.ProductCount+</p>
+                                        </td>
+                                        <td>@p.Price.ToString("C")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>                
+            }
+        </tbody>
+    </table>    
+</div>

@@ -9,6 +9,7 @@ namespace RadioStore.BusinessAccessLayer.AbstractsDTO
 {
     public interface IUnitOfWorkDTO
     {
-        IService<CategoryDTO> Category { get; }        
+        IService<CategoryDTO> Category { get; }
+        IService<ProductDTO> Products { get; }
     }
 }

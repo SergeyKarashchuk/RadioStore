@@ -25,15 +25,19 @@ namespace RadioStore.WebApplication.Controllers
 
         public PartialViewResult GetChildCategoryList(int? CategoryId)
         {
-
-            var childsCategories = uof.Category.GetAll()
-                                    .Where(x => x.ParentCategoryId == CategoryId)
-                                    .ToList();
-            //if (childsCategories == null)
-            //{
-            //    RedirectToAction("Index", "Product");
-            //}           
-            return PartialView(childsCategories);
+            
+            var childsCategories = GetChilds(CategoryId).ToList();
+            if (childsCategories.Count == 0)
+            {
+                HttpNotFound();
+            }
+            var viewModelCategories = childsCategories.Select(x =>
+                                            new CategoryDTOViewModel
+                                            {
+                                                Category = x,
+                                                IsNoChilds = GetChilds(x.CategoryId).ToArray().Length == 0
+                                            });            
+            return PartialView(viewModelCategories);
         }
 
         public PartialViewResult GetParrentsCategoryLinks(int? CategoryId)
@@ -46,6 +50,13 @@ namespace RadioStore.WebApplication.Controllers
                 cur = uof.Category.Get(cur.ParentCategoryId);
             }
             return PartialView(parrentsCategories);
+        }
+
+        private IQueryable<CategoryDTO> GetChilds(int? CategoryId)
+        {
+            var childList = uof.Category.GetAll()
+                                     .Where(x => x.ParentCategoryId == CategoryId);                                     
+            return childList;
         }
     }
 }

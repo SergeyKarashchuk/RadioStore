@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using RadioStore.WebApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace RadioStore.WebApplication.Models.IdentityModels
+namespace RadioStore.WebApplication.Infrastructure
 {
     public class AppIdentityInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {

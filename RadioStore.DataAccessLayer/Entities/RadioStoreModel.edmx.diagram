@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="05ce09b40d4e4302831fee4edd74cb3b" Name="Diagram1">
+        <EntityTypeShape EntityType="RadioStoreModel.CartItem" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.Cart" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.Category" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.News" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.PriceCount" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.PriceProduct" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.Product" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.ProductSpecification" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadioStoreModel.SpecificationType" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="RadioStoreModel.FK__CartItems__CartI__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__CartItems__Produ__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__Products__Catego__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__Specifica__Categ__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__PriceProd__Price__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__PriceProd__Price__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__ProductSp__Produ__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="RadioStoreModel.FK__ProductSp__Speci__68487DD7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

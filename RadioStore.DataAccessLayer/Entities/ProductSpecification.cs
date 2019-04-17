@@ -12,14 +12,14 @@ namespace RadioStore.DataAccessLayer.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class CartItem
+    public partial class ProductSpecification
     {
-        public int CartId { get; set; }
+        public int SpecificationId { get; set; }
+        public int SpecificationTypeId { get; set; }
+        public string SpecificationValue { get; set; }
         public int ProductId { get; set; }
-        public int ProductAmount { get; set; }
-        public int CartItemId { get; set; }
     
-        public virtual Cart Cart { get; set; }
         public virtual Product Product { get; set; }
+        public virtual SpecificationType SpecificationType { get; set; }
     }
 }

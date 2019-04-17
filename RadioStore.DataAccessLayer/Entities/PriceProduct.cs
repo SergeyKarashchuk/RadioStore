@@ -17,6 +17,7 @@ namespace RadioStore.DataAccessLayer.Entities
         public int ProductId { get; set; }
         public int PriceCountId { get; set; }
         public decimal Price { get; set; }
+        public int PriceProductId { get; set; }
     
         public virtual PriceCount PriceCount { get; set; }
         public virtual Product Product { get; set; }

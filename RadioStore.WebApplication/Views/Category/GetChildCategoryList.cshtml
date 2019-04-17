@@ -1,5 +1,5 @@
-﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
-@model IEnumerable<CategoryDTO>
+﻿@using RadioStore.WebApplication.Models
+@model IEnumerable<CategoryDTOViewModel>
 
 
 <div id="categoryList" class="card-group d-flex justify-content-center">  
@@ -8,19 +8,27 @@
     {
         <div class="card text-center">
             <div class="text-center">
-                <img src=@item.CategoryImage class="card-img-top categoryImg rounded">
+                <img src=@item.Category.CategoryImage class="card-img-top categoryImg rounded">
             </div>
             <div class="card-body">
-
-
-                @Ajax.ActionLink(item.CategoryName,
+                @if (item.IsNoChilds)
+                {
+                    @Html.ActionLink(item.Category.CategoryName,
+                                    "Index",                                   
+                                    "Product",
+                                    new { CategoryId = item.Category.CategoryId }, null)                       
+                }
+                else
+                { 
+                    @Ajax.ActionLink(item.Category.CategoryName,
                                     "GetChildCategoryList",
-                                    new { CategoryId = item.CategoryId },
+                                    new { CategoryId = item.Category.CategoryId },
                                     new AjaxOptions()
                                     {
                                         UpdateTargetId = "categoryList",
                                         InsertionMode = InsertionMode.Replace
                                     })
+                }
             </div>
         </div>
     }

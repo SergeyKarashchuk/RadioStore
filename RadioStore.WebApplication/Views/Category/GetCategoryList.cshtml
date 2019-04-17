@@ -1,0 +1,21 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model IEnumerable<CategoryDTO>
+
+
+
+<div class="card-group">
+    @foreach (var item in Model)
+    {
+        <a href=@Url.Action("Index","Category",new { CategoryId = item.CategoryId })>
+            <div class="card text-center" >
+                <div class="text-center">
+                    <img src=@item.CategoryImage class="card-img-top categoryImg rounded">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.CategoryName</h5>
+                </div>
+            </div>
+        </a>
+
+    }
+</div>

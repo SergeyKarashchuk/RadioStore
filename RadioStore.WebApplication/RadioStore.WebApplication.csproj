@@ -188,13 +188,21 @@
     </Compile>
     <Compile Include="Infrastructure\RadioShopDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CategoryDTOViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IdentityModels\AppIdentityInitializer.cs" />
+    <Compile Include="Infrastructure\AppIdentityInitializer.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\RadioStore.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\RadioStore_log.ldf">
+      <DependentUpon>RadioStore.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -298,7 +306,6 @@
     <Content Include="Views\Category\GetParrentsCategoryLinks.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />

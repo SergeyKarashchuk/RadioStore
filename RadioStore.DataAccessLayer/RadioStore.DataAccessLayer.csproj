@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,52 +76,69 @@
     <Compile Include="Concrete\ProductRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Entities\Cart.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\CartItem.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Category.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\EFSportStore.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFSportStore.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\EFSportStore.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFSportStore.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\EFSportStore.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFSportStore.edmx</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\News.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PriceCount.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PriceProduct.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
-      <DependentUpon>EFSportStore.tt</DependentUpon>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductSpecification.cs">
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\RadioStoreModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadioStoreModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\RadioStoreModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\RadioStoreModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadioStoreModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SpecificationType.cs">
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EntityDeploy Include="Entities\EFSportStore.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EFSportStore.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Entities\EFSportStore.edmx.diagram">
-      <DependentUpon>EFSportStore.edmx</DependentUpon>
+    <EntityDeploy Include="Entities\RadioStoreModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RadioStoreModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\RadioStoreModel.edmx.diagram">
+      <DependentUpon>RadioStoreModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -114,16 +146,18 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\EFSportStore.Context.tt">
+    <Content Include="Entities\RadioStoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EFSportStore.edmx</DependentUpon>
-      <LastGenOutput>EFSportStore.Context.cs</LastGenOutput>
+      <DependentUpon>RadioStoreModel.edmx</DependentUpon>
+      <LastGenOutput>RadioStoreModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\EFSportStore.tt">
+    <Content Include="Entities\RadioStoreModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EFSportStore.edmx</DependentUpon>
-      <LastGenOutput>EFSportStore.cs</LastGenOutput>
+      <DependentUpon>RadioStoreModel.edmx</DependentUpon>
+      <LastGenOutput>RadioStoreModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQLQuery_CreateRadioStoreDb.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

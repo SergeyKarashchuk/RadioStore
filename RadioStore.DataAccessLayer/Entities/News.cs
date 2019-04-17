@@ -20,6 +20,6 @@ namespace RadioStore.DataAccessLayer.Entities
         public string NewsDiscription { get; set; }
         public System.DateTime NewsDate { get; set; }
         public string NewsOutRef { get; set; }
-        public Nullable<int> NewsVisible { get; set; }
+        public bool NewsPublished { get; set; }
     }
 }
