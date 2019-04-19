@@ -20,7 +20,7 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
 
         public CategoryDTO Get(int? id)
         {
-            var item = this.GetAll().FirstOrDefault(x => x.CategoryId == id);
+            var item =  this.GetAll().FirstOrDefault(x => x.CategoryId == id);
             return item;
         }
 
@@ -28,13 +28,13 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
         {
             var list = uof.Categories
                             .GetAll()
-                                .Select(x => new CategoryDTO
-                                {
-                                    CategoryId = x.CategoryId,
-                                    CategoryImage = x.CategoryImage,
-                                    CategoryName = x.CategoryName,
-                                    ParentCategoryId = x.CategoryParentId
-                                });
+                            .Select(x => new CategoryDTO
+                            {
+                                CategoryId = x.CategoryId,
+                                CategoryImage = x.CategoryImage,
+                                CategoryName = x.CategoryName,
+                                ParentCategoryId = x.CategoryParentId
+                            });
             return list;
         }
 

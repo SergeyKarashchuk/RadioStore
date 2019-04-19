@@ -32,5 +32,38 @@ textarea {
 }
 
 .product_img_for_table_s {
-    width: 5rem;
+    width: 4rem;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropright {
+    position: relative;
+    display: inline-block;
+}
+
+.drophover-bottom {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    z-index: 1;
+}
+
+.drophover-right {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    left: 100%;
+    top: 0px;
+    right: 10px;
+    z-index: 1;
+}
+
+.dropdown:hover .drophover-bottom {
+    display: block;
 }

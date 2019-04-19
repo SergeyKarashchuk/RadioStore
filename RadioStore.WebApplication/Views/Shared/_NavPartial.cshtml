@@ -6,8 +6,13 @@
         </button>
         @Html.ActionLink("RadioStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <div class="collapse navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav nav mr-auto ">
-                <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+            <ul class="navbar-nav nav mr-auto">
+                <li class="dropdown">
+                    @Html.ActionLink("Categories","Index","Category", null, new { @class = "nav-link"})  
+                    <ul class="drophover-bottom bg-dark navbar-dark">
+                        @{ Html.RenderAction("GetCategoryNavItems", "Category", new { CategoryId = (int?)null }); }
+                    </ul>
+                </li>
                 <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
             </ul>

@@ -5,6 +5,7 @@ using RadioStore.WebApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,24 +21,13 @@ namespace RadioStore.WebApplication.Controllers
 
         public ActionResult Index(int? CategoryId)
         {
+            //CategoryId = CategoryId == 0 ? null : CategoryId;
             return View(CategoryId);
         }
 
         public PartialViewResult GetChildCategoryList(int? CategoryId)
-        {
-            
-            var childsCategories = GetChilds(CategoryId).ToList();
-            if (childsCategories.Count == 0)
-            {
-                HttpNotFound();
-            }
-            var viewModelCategories = childsCategories.Select(x =>
-                                            new CategoryDTOViewModel
-                                            {
-                                                Category = x,
-                                                IsNoChilds = GetChilds(x.CategoryId).ToArray().Length == 0
-                                            });            
-            return PartialView(viewModelCategories);
+        {            
+            return PartialView(GetCategoryViewModel(CategoryId));
         }
 
         public PartialViewResult GetParrentsCategoryLinks(int? CategoryId)
@@ -52,11 +42,41 @@ namespace RadioStore.WebApplication.Controllers
             return PartialView(parrentsCategories);
         }
 
+        public PartialViewResult GetCategoryNavItems(int? CategoryId = null)
+        {
+            return PartialView(GetCategoryViewModel(CategoryId));
+        }
+
         private IQueryable<CategoryDTO> GetChilds(int? CategoryId)
         {
             var childList = uof.Category.GetAll()
                                      .Where(x => x.ParentCategoryId == CategoryId);                                     
             return childList;
         }
+
+        private IEnumerable<CategoryDTOViewModel> GetCategoryViewModel(int? CategoryId)
+        {
+            var childsCategories = GetChilds(CategoryId).ToList();
+            var viewModelCategories = childsCategories.Select(x =>
+                                          new CategoryDTOViewModel
+                                          {
+                                              Category = x,
+                                              Childs = GetChilds(x.CategoryId).ToList()                                              
+                                          });
+            return viewModelCategories;
+        }
+
+        public ActionResult EditCategory(int? CategoryId = null)
+        {
+            var categoryForEdit = uof.Category.Get(CategoryId);
+            return View(categoryForEdit);
+        }
+
+        [HttpPost]
+        public ActionResult EditCategory(CategoryDTO newCategory)
+        {
+            return RedirectToAction("Index");
+        }
+
     }
 }

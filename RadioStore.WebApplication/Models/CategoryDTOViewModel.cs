@@ -9,6 +9,6 @@ namespace RadioStore.WebApplication.Models
     public class CategoryDTOViewModel
     {
         public CategoryDTO Category { get; set; }
-        public bool IsNoChilds { get; set; }
+        public IEnumerable<CategoryDTO> Childs { get; set; }
     }
 }

@@ -18,10 +18,12 @@
             <p>&copy; @DateTime.Now.Year - made by Karashchuk Sergey</p>
         </footer>
     </div>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/DropHoverMenuScript.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

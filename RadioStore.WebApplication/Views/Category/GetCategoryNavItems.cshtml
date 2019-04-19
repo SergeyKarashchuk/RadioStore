@@ -1,0 +1,31 @@
+﻿@using RadioStore.WebApplication.Models
+@model IEnumerable<CategoryDTOViewModel>
+
+
+@foreach (var item in Model)
+{
+    if (item.Childs.ToList().Count > 0)
+    {
+        <div class="dropright">
+            @Html.ActionLink(item.Category.CategoryName,
+                                  "Index",
+                                  "Category",                                 
+                                  new { CategoryId = item.Category.CategoryId },
+                                  new { @class = "nav-link"})
+            <ul class="drophover-right bg-dark navbar-dark">
+                @{ Html.RenderAction("GetCategoryNavItems", "Category", new { CategoryId = item.Category.CategoryId }); }
+            </ul>
+        </div>     
+
+    }
+    else
+    {
+        <div class="nav-item">
+            @Html.ActionLink(item.Category.CategoryName,
+                                       "Index",
+                                       "Product",
+                                       new { CategoryId = item.Category.CategoryId },
+                                       new { @class = "nav-link"})
+        </div>
+    }
+}

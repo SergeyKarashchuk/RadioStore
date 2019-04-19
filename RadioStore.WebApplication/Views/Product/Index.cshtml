@@ -1,57 +1,44 @@
-﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
-@model IEnumerable<ProductDTO>
+﻿@model RadioStore.WebApplication.Models.ProductDTOViewModel
 
 @{
     ViewBag.Title = "Product";
+    int[] itemsPerPageArray = new int[] { 5, 10, 15, 20 };
 }
 
 <div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Manufacturer</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <p class="text-xl-center">@item.ProductName</p>
-                    </td>
-                    <td>
-                        <div class="product_img_for_table_s">                            
-                            <img class="img-thumbnail img-fluid" src=@item.ProductImage alt="No image"/>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="text-md-center">@item.Manufacturer</p>
-                    </td>
-                    <td>
-                        <p class="text-md-center">@item.Description</p>
-                    </td>
-                    <td>
-                        <table class="table table-borderless text-sm-center">
-                            <tbody>
-                                @foreach (var p in item.Prices)
-                                {
-                                    <tr>
-                                        <td>
-                                            <p>@p.ProductCount+</p>
-                                        </td>
-                                        <td>@p.Price.ToString("C")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>                
-            }
-        </tbody>
-    </table>    
+    <h2>Filters</h2>
 </div>
+
+<div id="partialViewProductsWithPagination">
+    @Html.Partial("PartialProductListWithPagination", Model)
+</div>
+
+<div>
+    @if (Model.IsAdmin)
+    {
+        @Html.AntiForgeryToken()
+        @Html.ActionLink("New product", "NewProduct", null, new { @class = "btn btn-primary" })
+    }
+    <div class="dropdown" style="display:inline-block">
+        <button type="button"
+                class="btn dropdown-toggle btn-info"
+                id="productPageItemCount"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            Items Per Page
+        </button>
+        <div class="dropdown-menu"
+             aria-labelledby="productPageItemCount">
+            @foreach (var item in itemsPerPageArray)
+            {
+                @Ajax.ActionLink($"{item}",
+                                          "PartialProductListWithPagination",
+                                          new { CategoryId = Model.CategoryId, itemsPerPageCount = item },
+                                          new AjaxOptions { UpdateTargetId = "partialViewProductsWithPagination" },
+                                          new { @class = "list-group-item list-group-item-action list-group-item-primary" })
+            }
+        </div>
+    </div>
+</div>
+
