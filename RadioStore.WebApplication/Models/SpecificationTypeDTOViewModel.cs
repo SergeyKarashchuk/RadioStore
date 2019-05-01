@@ -6,10 +6,9 @@ using System.Web;
 
 namespace RadioStore.WebApplication.Models
 {
-    public class ProductDTOViewModel
+    public class SpecificationTypeDTOViewModel
     {
-        public IEnumerable<ProductDTO> Products { get; set; }
-        public int? CategoryId { get; set; } = null;
+        public IEnumerable<SpecificationTypeDTO> Specifications { get; set; }
         public int PageCount { get; set; }
     }
 }

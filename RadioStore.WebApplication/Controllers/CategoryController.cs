@@ -19,9 +19,8 @@ namespace RadioStore.WebApplication.Controllers
             this.uof = uof;
         }
 
-        public ActionResult Index(int? CategoryId)
+        public  ActionResult Index(int? CategoryId = null)
         {
-            //CategoryId = CategoryId == 0 ? null : CategoryId;
             return View(CategoryId);
         }
 
@@ -68,15 +67,45 @@ namespace RadioStore.WebApplication.Controllers
 
         public ActionResult EditCategory(int? CategoryId = null)
         {
+            ViewBag.ParrentCategorySelectList = uof.Category
+                                        .GetAll()
+                                        .Where(x => x.CategoryId != CategoryId)
+                                        .ToList();
             var categoryForEdit = uof.Category.Get(CategoryId);
             return View(categoryForEdit);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditCategory(CategoryDTO newCategory)
-        {
+        {     
+            
+            if (!ModelState.IsValid)
+            {                
+                ViewBag.ParrentCategorySelectList = uof.Category
+                                       .GetAll()
+                                       .Where(x => x.CategoryId != newCategory.CategoryId)
+                                       .ToList();
+                return View(newCategory);
+            }
+
+            if (newCategory.ParentCategoryId == 0)
+            {
+                newCategory.ParentCategoryId = null;
+            }
+
+            if (newCategory.CategoryId == null)
+            {
+                uof.Category.Add(newCategory);
+            }
+            else
+            {
+                uof.Category.Update(newCategory);
+            }            
             return RedirectToAction("Index");
         }
+
+
 
     }
 }

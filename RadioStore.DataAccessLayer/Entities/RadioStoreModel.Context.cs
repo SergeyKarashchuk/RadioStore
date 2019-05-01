@@ -33,6 +33,7 @@ namespace RadioStore.DataAccessLayer.Entities
         public virtual DbSet<PriceProduct> PriceProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductSpecification> ProductSpecifications { get; set; }
+        public virtual DbSet<SpecificationsToCategory> SpecificationsToCategories { get; set; }
         public virtual DbSet<SpecificationType> SpecificationTypes { get; set; }
     }
 }

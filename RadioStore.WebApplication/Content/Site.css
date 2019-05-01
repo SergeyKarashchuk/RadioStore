@@ -67,3 +67,8 @@ textarea {
 .dropdown:hover .drophover-bottom {
     display: block;
 }
+
+.btn-margined{
+    padding:4px;
+    margin:4px;
+}

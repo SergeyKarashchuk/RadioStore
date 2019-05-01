@@ -2,6 +2,7 @@
 using RadioStore.BusinessAccessLayer.ModelsDTO;
 using RadioStore.DataAccessLayer.Abstracts;
 using RadioStore.DataAccessLayer.Concrete;
+using RadioStore.DataAccessLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,14 +34,27 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
                                 CategoryId = x.CategoryId,
                                 CategoryImage = x.CategoryImage,
                                 CategoryName = x.CategoryName,
-                                ParentCategoryId = x.CategoryParentId
+                                ParentCategoryId = x.CategoryParentId,
+                                SpecificationTypes = x.SpecificationsToCategories.Select(s => new SpecificationTypeDTO
+                                {
+                                    IsInTableValue = s.SpecificationType.IsInTableValue,
+                                    SpecificationName = s.SpecificationType.SpecificationName,
+                                    SpecificationTypeId = s.SpecificationType.SpecificationTypeId
+                                }).ToList()
                             });
             return list;
         }
 
         public void Add(CategoryDTO obj)
         {
-            throw new NotImplementedException();
+            var newCategory = new Category
+            {
+                CategoryImage = obj.CategoryImage,
+                CategoryName = obj.CategoryName,
+                CategoryParentId = obj.ParentCategoryId
+            };
+            uof.Categories.Create(newCategory);
+            uof.SaveChanges();
         }
 
         public void Remove(CategoryDTO obj)
@@ -50,7 +64,15 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
 
         public void Update(CategoryDTO obj)
         {
-            throw new NotImplementedException();
+            var editCategory = uof.Categories.Get(obj.CategoryId.Value);
+            if (editCategory != null)
+            {
+                editCategory.CategoryImage = obj.CategoryImage;
+                editCategory.CategoryName = obj.CategoryName;
+                editCategory.CategoryParentId = obj.ParentCategoryId;
+                uof.Categories.Update(editCategory);
+                uof.SaveChanges();
+            }
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿@using RadioStore.WebApplication.Infrastructure.HtmlHelpers
+@using RadioStore.WebApplication.Models
+
+@model SpecificationTypeDTOViewModel
+
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="text-md-center">
+                <th>Specification Name</th>
+                <th>Is in table</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Specifications)
+            {
+                <tr>
+                    <td>@item.SpecificationName</td>
+                    <td>@item.IsInTableValue.ToString()</td>
+                    <td>
+                        <div class="d-inline btn-margined justify-content-center">
+                            @Html.ActionLinkWithImage("EditSpecificationType", "Specification", new { SpecificationTypeId = item.SpecificationTypeId },
+                                          "https://img.icons8.com/dusk/64/000000/edit.png", "Edit",
+                                          new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-warning" })
+                        </div>
+                        <div class="d-inline btn-margined justify-content-center">
+
+                            @Html.ActionLinkWithImage("DeleteSpecificationType", "Specification", new { SpecificationTypeId = item.SpecificationTypeId },
+                                          "https://img.icons8.com/flat_round/64/000000/delete-sign.png", "Remove",
+                                          new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-danger" })
+                        </div>
+                        <div class="d-inline btn-margined justify-content-center">
+                            @Html.ActionLink("Categories", "CategoriesForSpecificationType", new { SpecificationTypeId = item.SpecificationTypeId}, new { @class = "btn btn-outline-primary" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,4 +1,5 @@
-﻿@model RadioStore.WebApplication.Models.ProductDTOViewModel
+﻿@using RadioStore.WebApplication.Infrastructure.HtmlHelpers
+@model RadioStore.WebApplication.Models.ProductDTOViewModel
 
 <div>
     <table class="table table-bordered">
@@ -23,7 +24,7 @@
                         </div>
                     </td>
                     <td>
-                        <table class="table table-borderless text-sm-center">
+                        <table class="table table-sm small table-borderless text-sm-center">
                             <tbody>
                                 @foreach (var p in item.Prices)
                                 {
@@ -38,18 +39,34 @@
                         </table>
                     </td>
                     <td>
-                        @using (Html.BeginForm("AddProductToCart", "Cart", FormMethod.Post))
+                        @using (Html.BeginForm("AddProductToCart", "Cart", FormMethod.Post, new { @class = "d-inline" }))
                         {
-                            @Html.Hidden("productId",item.ProductId)
-                            <div>
-                                <input 
-                                       type="number"
-                                       name="productCount" 
+                            @Html.Hidden("productId", item.ProductId)
+                            <div class="d-inline">
+                                <input type="number"
+                                       name="productCount"
                                        min=@item.Prices.Min(x => x.ProductCount)
                                        required>
                             </div>
-                            <div>
-                                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                            <div class="d-inline">
+                                <button type="submit" class="btn btn-outline-primary btn-margined">
+                                    <img width="20" src="https://img.icons8.com/color/48/000000/add-shopping-cart.png"
+                                         alt="Add to Cart">
+                                </button>
+                            </div>
+                        }
+                        @if (Request.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <div class="d-inline btn-margined justify-content-center">
+                                @Html.ActionLinkWithImage("EditProduct", "Product", new { ProductId = item.ProductId },
+                                                        "https://img.icons8.com/dusk/64/000000/edit.png", "Edit",
+                                                        new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-warning"})
+                            </div>
+                            <div class="d-inline btn-margined justify-content-center">
+
+                                @Html.ActionLinkWithImage("DeleteProduct", "Product", new { ProductId = item.ProductId },
+                                                        "https://img.icons8.com/flat_round/64/000000/delete-sign.png", "Remove",
+                                                        new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-danger" })
                             </div>
                         }
                     </td>

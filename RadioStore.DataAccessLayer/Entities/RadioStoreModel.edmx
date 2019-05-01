@@ -77,13 +77,21 @@
           <Property Name="SpecificationValue" Type="nvarchar" MaxLength="100" />
           <Property Name="ProductId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SpecificationsToCategories">
+          <Key>
+            <PropertyRef Name="SpecificationToCategoryId" />
+          </Key>
+          <Property Name="SpecificationTypeId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="SpecificationToCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="SpecificationTypes">
           <Key>
             <PropertyRef Name="SpecificationTypeId" />
           </Key>
           <Property Name="SpecificationTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SpecificationName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CategoryId" Type="int" />
+          <Property Name="IsInTableValue" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK__CartItems__CartI__34C8D9D1">
           <End Role="Carts" Type="Self.Carts" Multiplicity="1" />
@@ -169,15 +177,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Specifica__Categ__656C112C">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="SpecificationTypes" Type="Self.SpecificationTypes" Multiplicity="*" />
+        <Association Name="FK__Specifica__Categ__02084FDA">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="SpecificationsToCategories" Type="Self.SpecificationsToCategories" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="SpecificationTypes">
+            <Dependent Role="SpecificationsToCategories">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specifica__Speci__02FC7413">
+          <End Role="SpecificationTypes" Type="Self.SpecificationTypes" Multiplicity="1" />
+          <End Role="SpecificationsToCategories" Type="Self.SpecificationsToCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecificationTypes">
+              <PropertyRef Name="SpecificationTypeId" />
+            </Principal>
+            <Dependent Role="SpecificationsToCategories">
+              <PropertyRef Name="SpecificationTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -190,6 +210,7 @@
           <EntitySet Name="PriceProduct" EntityType="Self.PriceProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecificationsToCategories" EntityType="Self.SpecificationsToCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SpecificationTypes" EntityType="Self.SpecificationTypes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CartItems__CartI__34C8D9D1" Association="Self.FK__CartItems__CartI__34C8D9D1">
             <End Role="Carts" EntitySet="Carts" />
@@ -219,9 +240,13 @@
             <End Role="SpecificationTypes" EntitySet="SpecificationTypes" />
             <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Specifica__Categ__656C112C" Association="Self.FK__Specifica__Categ__656C112C">
+          <AssociationSet Name="FK__Specifica__Categ__02084FDA" Association="Self.FK__Specifica__Categ__02084FDA">
             <End Role="Categories" EntitySet="Categories" />
+            <End Role="SpecificationsToCategories" EntitySet="SpecificationsToCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specifica__Speci__02FC7413" Association="Self.FK__Specifica__Speci__02FC7413">
             <End Role="SpecificationTypes" EntitySet="SpecificationTypes" />
+            <End Role="SpecificationsToCategories" EntitySet="SpecificationsToCategories" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -257,7 +282,7 @@
           <Property Name="CategoryImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CategoryParentId" Type="Int32" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__267ABA7A" FromRole="Categories" ToRole="Products" />
-          <NavigationProperty Name="SpecificationTypes" Relationship="Self.FK__Specifica__Categ__656C112C" FromRole="Categories" ToRole="SpecificationTypes" />
+          <NavigationProperty Name="SpecificationsToCategories" Relationship="Self.FK__Specifica__Categ__02084FDA" FromRole="Categories" ToRole="SpecificationsToCategories" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -315,15 +340,25 @@
           <NavigationProperty Name="Product" Relationship="Self.FK__ProductSp__Produ__693CA210" FromRole="ProductSpecifications" ToRole="Products" />
           <NavigationProperty Name="SpecificationType" Relationship="Self.FK__ProductSp__Speci__68487DD7" FromRole="ProductSpecifications" ToRole="SpecificationTypes" />
         </EntityType>
+        <EntityType Name="SpecificationsToCategory">
+          <Key>
+            <PropertyRef Name="SpecificationToCategoryId" />
+          </Key>
+          <Property Name="SpecificationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="SpecificationToCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Specifica__Categ__02084FDA" FromRole="SpecificationsToCategories" ToRole="Categories" />
+          <NavigationProperty Name="SpecificationType" Relationship="Self.FK__Specifica__Speci__02FC7413" FromRole="SpecificationsToCategories" ToRole="SpecificationTypes" />
+        </EntityType>
         <EntityType Name="SpecificationType">
           <Key>
             <PropertyRef Name="SpecificationTypeId" />
           </Key>
           <Property Name="SpecificationTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpecificationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryId" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Specifica__Categ__656C112C" FromRole="SpecificationTypes" ToRole="Categories" />
+          <Property Name="IsInTableValue" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ProductSpecifications" Relationship="Self.FK__ProductSp__Speci__68487DD7" FromRole="SpecificationTypes" ToRole="ProductSpecifications" />
+          <NavigationProperty Name="SpecificationsToCategories" Relationship="Self.FK__Specifica__Speci__02FC7413" FromRole="SpecificationTypes" ToRole="SpecificationsToCategories" />
         </EntityType>
         <Association Name="FK__CartItems__CartI__34C8D9D1">
           <End Role="Carts" Type="Self.Cart" Multiplicity="1" />
@@ -361,14 +396,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Specifica__Categ__656C112C">
-          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="SpecificationTypes" Type="Self.SpecificationType" Multiplicity="*" />
+        <Association Name="FK__Specifica__Categ__02084FDA">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="SpecificationsToCategories" Type="Self.SpecificationsToCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
             </Principal>
-            <Dependent Role="SpecificationTypes">
+            <Dependent Role="SpecificationsToCategories">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
@@ -421,6 +456,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Specifica__Speci__02FC7413">
+          <End Role="SpecificationTypes" Type="Self.SpecificationType" Multiplicity="1" />
+          <End Role="SpecificationsToCategories" Type="Self.SpecificationsToCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecificationTypes">
+              <PropertyRef Name="SpecificationTypeId" />
+            </Principal>
+            <Dependent Role="SpecificationsToCategories">
+              <PropertyRef Name="SpecificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CartItems" EntityType="Self.CartItem" />
           <EntitySet Name="Carts" EntityType="Self.Cart" />
@@ -430,6 +477,7 @@
           <EntitySet Name="PriceProducts" EntityType="Self.PriceProduct" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecification" />
+          <EntitySet Name="SpecificationsToCategories" EntityType="Self.SpecificationsToCategory" />
           <EntitySet Name="SpecificationTypes" EntityType="Self.SpecificationType" />
           <AssociationSet Name="FK__CartItems__CartI__34C8D9D1" Association="Self.FK__CartItems__CartI__34C8D9D1">
             <End Role="Carts" EntitySet="Carts" />
@@ -443,9 +491,9 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Specifica__Categ__656C112C" Association="Self.FK__Specifica__Categ__656C112C">
+          <AssociationSet Name="FK__Specifica__Categ__02084FDA" Association="Self.FK__Specifica__Categ__02084FDA">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="SpecificationTypes" EntitySet="SpecificationTypes" />
+            <End Role="SpecificationsToCategories" EntitySet="SpecificationsToCategories" />
           </AssociationSet>
           <AssociationSet Name="FK__PriceProd__Price__2E1BDC42" Association="Self.FK__PriceProd__Price__2E1BDC42">
             <End Role="PriceCount" EntitySet="PriceCounts" />
@@ -462,6 +510,10 @@
           <AssociationSet Name="FK__ProductSp__Speci__68487DD7" Association="Self.FK__ProductSp__Speci__68487DD7">
             <End Role="SpecificationTypes" EntitySet="SpecificationTypes" />
             <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specifica__Speci__02FC7413" Association="Self.FK__Specifica__Speci__02FC7413">
+            <End Role="SpecificationTypes" EntitySet="SpecificationTypes" />
+            <End Role="SpecificationsToCategories" EntitySet="SpecificationsToCategories" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -550,12 +602,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SpecificationsToCategories">
+            <EntityTypeMapping TypeName="RadioStoreModel.SpecificationsToCategory">
+              <MappingFragment StoreEntitySet="SpecificationsToCategories">
+                <ScalarProperty Name="SpecificationTypeId" ColumnName="SpecificationTypeId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SpecificationToCategoryId" ColumnName="SpecificationToCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SpecificationTypes">
             <EntityTypeMapping TypeName="RadioStoreModel.SpecificationType">
               <MappingFragment StoreEntitySet="SpecificationTypes">
                 <ScalarProperty Name="SpecificationTypeId" ColumnName="SpecificationTypeId" />
                 <ScalarProperty Name="SpecificationName" ColumnName="SpecificationName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="IsInTableValue" ColumnName="IsInTableValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

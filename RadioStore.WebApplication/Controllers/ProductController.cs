@@ -56,6 +56,11 @@ namespace RadioStore.WebApplication.Controllers
             return lastpage;
         }
 
+        public ActionResult EditProduct(int? ProductId = null)
+        {
+            return View();
+        }
+
         private async Task<ProductDTOViewModel> GetViewModelAsync(int? CategoryId = null)
         {
             int pageId = GetLastPageId();
@@ -76,8 +81,7 @@ namespace RadioStore.WebApplication.Controllers
             {
                 CategoryId = CategoryId,
                 Products = list.ToList(),
-                PageCount = pageCount,
-                IsAdmin = true  //there will be is aush && admin              
+                PageCount = pageCount
             };
             return model;
         }

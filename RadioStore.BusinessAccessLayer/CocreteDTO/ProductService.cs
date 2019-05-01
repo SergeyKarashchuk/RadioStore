@@ -40,7 +40,7 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
                                         {
                                             ProductCount = p.PriceCount.ProductCount,
                                             Price = p.Price                                            
-                                        })                                        
+                                        }).ToList()                                        
                                     });
             return productList;
         }

@@ -72,8 +72,16 @@ create table [SpecificationTypes]
 (
 	SpecificationTypeId int primary key identity,
 	SpecificationName nvarchar(100) not null unique,
-	CategoryId int null,
-	foreign key (CategoryId) references Categories(CategoryId)
+	IsInTableValue bit not null
+)
+
+create table [SpecificationsToCategories]
+(
+	SpecificationToCategoryId int primary key identity,
+	SpecificationTypeId int not null,
+	CategoryId int not null,
+	foreign key (CategoryId) references Categories(CategoryId),
+	foreign key (SpecificationTypeId) references SpecificationTypes(SpecificationTypeId)
 )
 
 create table [ProductSpecifications]

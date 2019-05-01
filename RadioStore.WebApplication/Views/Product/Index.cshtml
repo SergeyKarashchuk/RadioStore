@@ -14,9 +14,8 @@
 </div>
 
 <div>
-    @if (Model.IsAdmin)
+    @if (Request.IsAuthenticated && User.IsInRole("admin"))
     {
-        @Html.AntiForgeryToken()
         @Html.ActionLink("New product", "NewProduct", null, new { @class = "btn btn-primary" })
     }
     <div class="dropdown" style="display:inline-block">

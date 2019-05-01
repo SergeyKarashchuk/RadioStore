@@ -11,5 +11,6 @@ namespace RadioStore.BusinessAccessLayer.AbstractsDTO
     {
         IService<CategoryDTO> Category { get; }
         IService<ProductDTO> Products { get; }
+        IService<SpecificationTypeDTO> SpecificationTypes { get; }
     }
 }

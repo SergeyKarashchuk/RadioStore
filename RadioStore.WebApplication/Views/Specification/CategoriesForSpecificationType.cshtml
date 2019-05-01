@@ -1,0 +1,67 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model SpecificationTypeDTO
+
+@{
+    ViewBag.Title = "CategoriesForSpecificationType";
+
+    var CategoryList = new List<SelectListItem>();   
+
+    foreach (var item in (IEnumerable<CategoryDTO>)ViewBag.CategoryList)
+    {
+        CategoryList.Add(new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName });
+    }  
+}
+
+<h2>Categories of "@Model.SpecificationName"</h2>
+<div>
+    <div class="form-group">
+            @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
+            @if (Model.Categories != null && Model.Categories.Count > 0)
+            {
+                <div class="col-md-10">
+                    <table class="table table-borderless table-sm">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Categories)
+                            {
+                                <tr>
+                                    <td>@item.CategoryName</td>
+                                    <td>
+                                        @using (Html.BeginForm("RemoveCategoryFromSpecification",
+                                                "Specification", FormMethod.Post,
+                                                new { @class = "d-inline" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("SpecificationTypeId", Model.SpecificationTypeId)
+                                            @Html.Hidden("CategoryId", item.CategoryId)
+                                            <div class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-margined">
+                                                    <img width="15" src="https://img.icons8.com/flat_round/64/000000/delete-sign.png"
+                                                         alt="Remove category from specification">
+                                                </button>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            <div>
+                @using (Html.BeginForm("AddSpecificationToCategory", "Specification", FormMethod.Post, new { @class = "d-inline" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("SpecificationTypeId", Model.SpecificationTypeId)
+                    @Html.DropDownList("CategoryId", CategoryList, new { @class = "form-control d-inline" })
+                    <input type="submit" value="Add cat to spec" class="btn btn-primary d-inline" />
+                }
+            </div>
+        </div>
+</div>
+

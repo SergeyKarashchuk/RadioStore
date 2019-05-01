@@ -12,6 +12,11 @@
     </div>
     <div id="categoryList">
         @{ Html.RenderAction("GetChildCategoryList", "Category", new { CategoryId = Model }); }
-    </div>
-
+    </div> 
+    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <div>
+            @Html.ActionLink("New Category", "EditCategory", null, null)
+        </div>
+    }
 </div>

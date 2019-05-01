@@ -74,6 +74,8 @@
     <Compile Include="Concrete\PriceCountRepository.cs" />
     <Compile Include="Concrete\PriceProductRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
+    <Compile Include="Concrete\SpecificationsToCategoryRepository.cs" />
+    <Compile Include="Concrete\SpecificationTypesRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Entities\Cart.cs">
       <DependentUpon>RadioStoreModel.tt</DependentUpon>
@@ -113,6 +115,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RadioStoreModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SpecificationsToCategory.cs">
+      <DependentUpon>RadioStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SpecificationType.cs">
       <DependentUpon>RadioStoreModel.tt</DependentUpon>

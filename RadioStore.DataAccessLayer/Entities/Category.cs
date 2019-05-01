@@ -18,7 +18,7 @@ namespace RadioStore.DataAccessLayer.Entities
         public Category()
         {
             this.Products = new HashSet<Product>();
-            this.SpecificationTypes = new HashSet<SpecificationType>();
+            this.SpecificationsToCategories = new HashSet<SpecificationsToCategory>();
         }
     
         public int CategoryId { get; set; }
@@ -29,6 +29,6 @@ namespace RadioStore.DataAccessLayer.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SpecificationType> SpecificationTypes { get; set; }
+        public virtual ICollection<SpecificationsToCategory> SpecificationsToCategories { get; set; }
     }
 }

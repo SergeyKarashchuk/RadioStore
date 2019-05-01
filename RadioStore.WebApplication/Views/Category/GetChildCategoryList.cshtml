@@ -1,6 +1,10 @@
 ﻿@using RadioStore.WebApplication.Models
 @model IEnumerable<CategoryDTOViewModel>
 
+@{ 
+    bool isAdmin = Request.IsAuthenticated && User.IsInRole("admin");
+}
+
 
 <div id="categoryList" class="card-group d-flex justify-content-center">  
     
@@ -14,12 +18,12 @@
                 @if (item.Childs.ToList().Count == 0)
                 {
                     @Html.ActionLink(item.Category.CategoryName,
-                                    "Index",                                   
+                                    "Index",
                                     "Product",
-                                    new { CategoryId = item.Category.CategoryId }, null)                       
+                                    new { CategoryId = item.Category.CategoryId }, null)
                 }
                 else
-                { 
+                {
                     @Ajax.ActionLink(item.Category.CategoryName,
                                     "GetChildCategoryList",
                                     new { CategoryId = item.Category.CategoryId },
@@ -29,7 +33,22 @@
                                         InsertionMode = InsertionMode.Replace
                                     })
                 }
+                
+                @if (isAdmin)
+                {
+                    foreach (var spec in item.Category.SpecificationTypes)
+                    {
+                        <p>
+                            @spec.SpecificationName
+                        </p>
+                    }
+                    <div>
+                        @Html.ActionLink("Edit",
+                                        "EditCategory",
+                                        new { CategoryId = item.Category.CategoryId })
+                    </div>                 
+                }
             </div>
         </div>
-    }
+    }  
 </div>

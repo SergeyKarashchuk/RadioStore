@@ -17,9 +17,11 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
             this.uof = uof;
             Category = new CategoryService(uof);
             Products = new ProductService(uof);
+            SpecificationTypes = new SpecificationTypeService(uof);
         }
         
         public IService<CategoryDTO> Category { get; }
         public IService<ProductDTO> Products { get; }
+        public IService<SpecificationTypeDTO> SpecificationTypes { get; }
     }
 }

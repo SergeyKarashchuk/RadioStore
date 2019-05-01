@@ -18,14 +18,16 @@ namespace RadioStore.DataAccessLayer.Entities
         public SpecificationType()
         {
             this.ProductSpecifications = new HashSet<ProductSpecification>();
+            this.SpecificationsToCategories = new HashSet<SpecificationsToCategory>();
         }
     
         public int SpecificationTypeId { get; set; }
         public string SpecificationName { get; set; }
-        public Nullable<int> CategoryId { get; set; }
+        public bool IsInTableValue { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSpecification> ProductSpecifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SpecificationsToCategory> SpecificationsToCategories { get; set; }
     }
 }

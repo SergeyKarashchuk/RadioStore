@@ -17,6 +17,8 @@ namespace RadioStore.DataAccessLayer.Concrete
         public IRepository<PriceCount> PriceCounts { get; }
         public IRepository<CartItem> CartItems { get; }
         public IRepository<PriceProduct> PriceProducts { get; }
+        public IRepository<SpecificationType> SpecificationTypes { get; }
+        public IRepository<SpecificationsToCategory> SpecificationsToCategories { get; }
 
         private RadioStoreEntities db;
 
@@ -30,6 +32,8 @@ namespace RadioStore.DataAccessLayer.Concrete
             PriceCounts = new PriceCountRepository(db);
             CartItems = new CartItemRepository(db);
             PriceProducts = new PriceProductRepository(db);
+            SpecificationTypes = new SpecificationTypesRepository(db);
+            SpecificationsToCategories = new SpecificationsToCategoryRepository(db);
         }
         
         public void SaveChanges()
