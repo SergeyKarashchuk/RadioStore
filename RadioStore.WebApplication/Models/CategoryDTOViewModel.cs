@@ -8,7 +8,11 @@ namespace RadioStore.WebApplication.Models
 {
     public class CategoryDTOViewModel
     {
+        public CategoryDTOViewModel()
+        {
+            Childs = new List<CategoryDTO>();
+        }
         public CategoryDTO Category { get; set; }
-        public IEnumerable<CategoryDTO> Childs { get; set; }
+        public List<CategoryDTO> Childs { get; set; }        
     }
 }

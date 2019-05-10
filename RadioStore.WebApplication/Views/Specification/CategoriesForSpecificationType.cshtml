@@ -4,12 +4,15 @@
 @{
     ViewBag.Title = "CategoriesForSpecificationType";
 
-    var CategoryList = new List<SelectListItem>();   
-
-    foreach (var item in (IEnumerable<CategoryDTO>)ViewBag.CategoryList)
+    var CategorySelectListItem = new List<SelectListItem>();
+    var CategoryList = ViewBag.CategoryList as IEnumerable<CategoryDTO>;
+    if (CategoryList != null)
     {
-        CategoryList.Add(new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName });
-    }  
+        foreach (var item in CategoryList)
+        {
+            CategorySelectListItem.Add(new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName });
+        }
+    }
 }
 
 <h2>Categories of "@Model.SpecificationName"</h2>
@@ -58,7 +61,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("SpecificationTypeId", Model.SpecificationTypeId)
-                    @Html.DropDownList("CategoryId", CategoryList, new { @class = "form-control d-inline" })
+                    @Html.DropDownList("CategoryId", CategorySelectListItem, new { @class = "form-control d-inline" })
                     <input type="submit" value="Add cat to spec" class="btn btn-primary d-inline" />
                 }
             </div>

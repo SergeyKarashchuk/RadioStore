@@ -41,7 +41,7 @@ namespace RadioStore.BusinessAccessLayer.CocreteDTO
                                     SpecificationName = s.SpecificationType.SpecificationName,
                                     SpecificationTypeId = s.SpecificationType.SpecificationTypeId
                                 }).ToList()
-                            });
+                            });           
             return list;
         }
 

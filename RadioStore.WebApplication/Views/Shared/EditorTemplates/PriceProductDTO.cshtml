@@ -1,0 +1,26 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model PriceProductDTO
+
+@Html.HiddenFor(x => x.IsNewPrice)
+<tr>
+    <td>
+        @Html.EditorFor(x => x.ProductCount, new { htmlAttributes = new {
+                                                                           @class = "form-control",
+                                                                           placeholder = "Product count",
+                                                                           required = "required" } })
+        @Html.ValidationMessageFor(x => x.ProductCount, "", new { @class = "text-danger" })
+    </td>
+    <td>
+        @Html.EditorFor(x => x.Price, new { htmlAttributes = new
+                                                                           {
+                                                                               @class = "form-control",
+                                                                               placeholder = "Product count",
+                                                                               required = "required",
+                                                                           }
+                                                                       })
+        @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+    </td>
+    <td>
+        @Html.EditorFor(x => x.IsRemove)
+    </td>
+</tr>

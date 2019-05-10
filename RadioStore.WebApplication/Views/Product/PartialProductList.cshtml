@@ -1,5 +1,11 @@
 ﻿@using RadioStore.WebApplication.Infrastructure.HtmlHelpers
+@using RadioStore.BusinessAccessLayer.ModelsDTO
 @model RadioStore.WebApplication.Models.ProductDTOViewModel
+
+@{ 
+    bool isAdmin = Request.IsAuthenticated && User.IsInRole("admin");
+    var categories = Model.Specifications.Where(x => x.IsInTableValue).ToArray() ?? new SpecificationTypeDTO[0];
+}
 
 <div>
     <table class="table table-bordered">
@@ -8,69 +14,121 @@
                 <th>Name</th>
                 <th>Image</th>
                 <th>Price</th>
+                @foreach (var item in categories)
+                {
+                    <th>@item.SpecificationName</th>
+                }
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Products)
             {
-                <tr>
+            <tr>
+                <td>
+                    <p class="text-sm-center">@item.ProductName</p>
+                </td>
+                <td>
+                    <div class="product_img_for_table_s">
+                        <img class="img-thumbnail img-fluid" src=@item.ProductImage alt="No image" />
+                    </div>
+                </td>
+                <td>
+                    <table class="table table-sm small table-borderless text-sm-center">
+                        <tbody>
+                            @foreach (var p in item.Prices)
+                            {
+                                <tr>
+                                    <td>
+                                        <p>@p.ProductCount+</p>
+                                    </td>
+                                    <td>@p.Price.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+                @foreach (var s in categories)
+                {
                     <td>
-                        <p class="text-xl-center">@item.ProductName</p>
+                        <p class="text-sm-center">
+                            @(item.Specifications?.Find(x => x.SpecificationTypeId == s.SpecificationTypeId)?.SpecificationValue)
+                        </p>
                     </td>
-                    <td>
-                        <div class="product_img_for_table_s">
-                            <img class="img-thumbnail img-fluid" src=@item.ProductImage alt="No image" />
-                        </div>
-                    </td>
-                    <td>
-                        <table class="table table-sm small table-borderless text-sm-center">
-                            <tbody>
-                                @foreach (var p in item.Prices)
-                                {
-                                    <tr>
-                                        <td>
-                                            <p>@p.ProductCount+</p>
-                                        </td>
-                                        <td>@p.Price.ToString("C")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        @using (Html.BeginForm("AddProductToCart", "Cart", FormMethod.Post, new { @class = "d-inline" }))
-                        {
-                            @Html.Hidden("productId", item.ProductId)
-                            <div class="d-inline">
-                                <input type="number"
-                                       name="productCount"
-                                       min=@item.Prices.Min(x => x.ProductCount)
-                                       required>
-                            </div>
-                            <div class="d-inline">
-                                <button type="submit" class="btn btn-outline-primary btn-margined">
-                                    <img width="20" src="https://img.icons8.com/color/48/000000/add-shopping-cart.png"
-                                         alt="Add to Cart">
-                                </button>
-                            </div>
-                        }
-                        @if (Request.IsAuthenticated && User.IsInRole("admin"))
-                        {
-                            <div class="d-inline btn-margined justify-content-center">
-                                @Html.ActionLinkWithImage("EditProduct", "Product", new { ProductId = item.ProductId },
-                                                        "https://img.icons8.com/dusk/64/000000/edit.png", "Edit",
-                                                        new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-warning"})
-                            </div>
-                            <div class="d-inline btn-margined justify-content-center">
+                }              
 
-                                @Html.ActionLinkWithImage("DeleteProduct", "Product", new { ProductId = item.ProductId },
-                                                        "https://img.icons8.com/flat_round/64/000000/delete-sign.png", "Remove",
-                                                        new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-danger" })
-                            </div>
+                <td>
+                    @using (Html.BeginForm("AddProductToCart", "Cart", FormMethod.Post, new { @class = "d-inline" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("productId", item.ProductId)
+                        <div class="d-inline">
+                            <input type="number"
+                                   name="productCount"
+                                   @{ int min = 1; if (item.Prices.Count > 0) { min = item.Prices.Min(x => x.ProductCount); } }
+                                   min=@min
+                                   required>
+                        </div>
+                        <div class="d-inline">
+                            <button type="submit" class="btn btn-outline-primary btn-margined">
+                                <img width="20" src="https://img.icons8.com/color/48/000000/add-shopping-cart.png"
+                                     alt="Add to Cart">
+                            </button>
+                        </div>
+                    }
+                    <div>
+                        @if (isAdmin)
+                        {
+                            if (!item.IsPublished)
+                            {
+                                <div class="d-inline btn-margined justify-content-center">
+                                    @Html.ActionLinkWithImage("EditProduct", "Product", new { productId = item.ProductId },
+                                                                 "https://img.icons8.com/dusk/64/000000/edit.png", "Edit",
+                                                                 new { @class = "img-fluid", width = 20 }, new { @class = "d-inline btn btn-outline-warning" })
+                                </div>
+                                <div class="d-inline btn-margined justify-content-center">
+                                    @using (Html.BeginForm("DeleteProduct",
+                                                            "Product",
+                                                            FormMethod.Post,
+                                                            new { @class = "d-inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("productId", item.ProductId)
+                                        <div class="d-inline">
+                                            <button type="submit" class="btn btn-outline-danger btn-margined">
+                                                <img width="20"
+                                                     src="https://img.icons8.com/flat_round/64/000000/delete-sign.png"
+                                                     alt="RemoveProduct" />
+                                            </button>
+                                        </div>
+                                    }
+
+                                </div>
+                                <div class="d-inline">
+                                    @Html.ActionLink("ChangePrices", "EditProductPrices", new { productId = item.ProductId }, new { @class = "btn btn-outline-primary" })
+                                </div>
+                                <div class="d-inline">
+                                    @Html.ActionLink("ChangeSpecifications", "EditProductSpecifications", new { productId = item.ProductId }, new { @class = "btn btn-outline-primary" })
+                                </div>
+                            }
+                            using (Html.BeginForm("ChangePublishProductAttribute",
+                                                    "Product",
+                                                    FormMethod.Post,
+                                                    new { @class = "d-inline" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("productId", item.ProductId)
+                                <div class="d-inline">
+                                    <input type="submit"
+                                           class="btn btn-outline-primary"
+                                           value="@(item.IsPublished?"Unpublish":"Publish")" />
+
+                                </div>
+                            }
                         }
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

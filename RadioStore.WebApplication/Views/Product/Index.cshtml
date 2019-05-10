@@ -16,7 +16,7 @@
 <div>
     @if (Request.IsAuthenticated && User.IsInRole("admin"))
     {
-        @Html.ActionLink("New product", "NewProduct", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("New product", "EditProduct", null, new { @class = "btn btn-primary" })
     }
     <div class="dropdown" style="display:inline-block">
         <button type="button"

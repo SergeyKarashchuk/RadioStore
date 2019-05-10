@@ -60,23 +60,30 @@ namespace RadioStore.WebApplication.Controllers
                                           new CategoryDTOViewModel
                                           {
                                               Category = x,
-                                              Childs = GetChilds(x.CategoryId).ToList()                                              
+                                              Childs = GetChilds(x.CategoryId).ToList(),                                              
                                           });
             return viewModelCategories;
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult EditCategory(int? CategoryId = null)
         {
-            ViewBag.ParrentCategorySelectList = uof.Category
+            var categoryForEdit = uof.Category.Get(CategoryId);
+            
+            var parentCategoryList = uof.Category
                                         .GetAll()
                                         .Where(x => x.CategoryId != CategoryId)
                                         .ToList();
-            var categoryForEdit = uof.Category.Get(CategoryId);
+
+            ViewBag.ParrentCategorySelectList = parentCategoryList
+                                                    .Where(x => !uof.Products.GetAll()
+                                                    .Any(y => y.CategoryId == x.CategoryId));
             return View(categoryForEdit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult EditCategory(CategoryDTO newCategory)
         {     
             

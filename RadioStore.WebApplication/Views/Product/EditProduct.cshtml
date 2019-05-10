@@ -1,0 +1,83 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model ProductDTO
+
+@{
+    ViewBag.Title = "EditProduct";
+    var RootCategoryList = new List<SelectListItem>();  
+
+    var rootCategoryListForProducts = ViewBag.CategoryList as IEnumerable<CategoryDTO>;
+    if (rootCategoryListForProducts != null)
+    {
+        foreach (var item in rootCategoryListForProducts)
+        {
+            RootCategoryList.Add(new SelectListItem { Value = item.CategoryId.ToString(), Text = item.CategoryName });
+        }
+    }
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (Model != null)
+        {
+            <h4>@Model.ProductName</h4>
+        }
+        else
+        {
+            <h4>New Product</h4>
+        }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(x => x.ProductId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control",
+                                                                                       placeholder = "Product name",
+                                                                                       required = "required" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+            </div>
+            <div class="img_for_crud">
+                <img id="imgForCrud"
+                     class="img-thumbnail img-fluid d-lg-inline-block img_for_table_l"
+                     src=@(Model?.ProductImage) alt="No image" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryId, RootCategoryList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section UpdateImageForCrudSection
+{
+    @Scripts.Render("~/Scripts/UpdateImageForCrud.js")
+}

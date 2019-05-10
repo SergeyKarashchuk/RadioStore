@@ -27,12 +27,12 @@ textarea {
 
 .categoryImg{
 
-    width:5rem;
+    width:10rem;
     height:5rem;
 }
 
 .product_img_for_table_s {
-    width: 4rem;
+    width: 3rem;
 }
 
 .dropdown {
@@ -71,4 +71,8 @@ textarea {
 .btn-margined{
     padding:4px;
     margin:4px;
+}
+
+.img_for_crud{
+    width:10rem;
 }

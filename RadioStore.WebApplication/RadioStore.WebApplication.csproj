@@ -279,6 +279,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\UpdateImageForCrud.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -336,6 +337,11 @@
     <Content Include="Views\Specification\PartialSpecificationTypesList.cshtml" />
     <Content Include="Views\Specification\EditSpecificationType.cshtml" />
     <Content Include="Views\Specification\CategoriesForSpecificationType.cshtml" />
+    <Content Include="Views\Product\EditProduct.cshtml" />
+    <Content Include="Views\Product\EditProductPrices.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PriceProductDTO.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ProductSpecificationDTO.cshtml" />
+    <Content Include="Views\Product\EditProductSpecifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
@@ -343,6 +349,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Resourses\Images\" />
     <Folder Include="Views\News\" />
+    <Folder Include="Views\PriceProduct\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

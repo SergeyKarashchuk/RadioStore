@@ -11,6 +11,8 @@ namespace RadioStore.BusinessAccessLayer.ModelsDTO
         public int SpecificationId { get; set; }
         public int SpecificationTypeId { get; set; }
         public string SpecificationValue { get; set; }
-        public int ProductId { get; set; }
+        public string SpecificationType { get; set; }
+        public bool IsNewSpec { get; set; }
+        public bool IsRemove { get; set; }
     }
 }

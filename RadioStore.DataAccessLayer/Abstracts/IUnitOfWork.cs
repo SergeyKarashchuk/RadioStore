@@ -18,6 +18,7 @@ namespace RadioStore.DataAccessLayer.Abstracts
         IRepository<PriceProduct> PriceProducts { get; }
         IRepository<SpecificationType> SpecificationTypes { get; }
         IRepository<SpecificationsToCategory> SpecificationsToCategories { get; }
+        IRepository<ProductSpecification> ProductSpecifications { get; }
         void SaveChangesAsync();
         void SaveChanges();
     }

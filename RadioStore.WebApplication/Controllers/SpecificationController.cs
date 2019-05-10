@@ -95,7 +95,12 @@ namespace RadioStore.WebApplication.Controllers
         public ActionResult CategoriesForSpecificationType(int? SpecificationTypeId)
         {
             var specificationType = uof.SpecificationTypes.Get(SpecificationTypeId);
-            ViewBag.CategoryList = uof.Category.GetAll();
+            var categoryList = uof.Category.GetAll().ToList();
+
+
+
+            ViewBag.CategoryList = categoryList.Where(x => !(specificationType.Categories.Any(y => x.CategoryId == y.CategoryId)
+                                                      || uof.Category.GetAll().Any(y => x.CategoryId == y.ParentCategoryId)));
             return View(specificationType);
         }
 
@@ -119,7 +124,7 @@ namespace RadioStore.WebApplication.Controllers
         {
             var specification = uof.SpecificationTypes.Get(SpecificationTypeId);
             var categoryForAdd = uof.Category.Get(CategoryId);
-            if (specification != null)
+            if (specification != null && !specification.Categories.Contains(categoryForAdd))
             {
                 specification.Categories.Add(categoryForAdd);
                 uof.SpecificationTypes.Update(specification);

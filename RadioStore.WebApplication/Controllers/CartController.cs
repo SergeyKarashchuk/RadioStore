@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace RadioStore.WebApplication.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CartController : Controller
     {
         public ActionResult Index(string val)
@@ -16,6 +16,7 @@ namespace RadioStore.WebApplication.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddProductToCart(int? productId, int productCount)
         {
             var str = $"\"productId = {productId};productCount = {productCount};\"";

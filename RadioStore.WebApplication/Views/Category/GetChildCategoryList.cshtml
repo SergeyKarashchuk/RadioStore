@@ -15,7 +15,7 @@
                 <img src=@item.Category.CategoryImage class="card-img-top categoryImg rounded">
             </div>
             <div class="card-body">
-                @if (item.Childs.ToList().Count == 0)
+                @if (item.Childs.Count == 0)
                 {
                     @Html.ActionLink(item.Category.CategoryName,
                                     "Index",

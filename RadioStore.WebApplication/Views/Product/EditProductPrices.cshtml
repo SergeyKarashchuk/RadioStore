@@ -1,0 +1,36 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model IEnumerable<PriceProductDTO>
+@{
+    ViewBag.Title = "EditProductPrices";
+}
+
+<h4>Edit prices for @ViewBag.ProductName</h4>
+
+@using (Html.BeginForm("EditProductPrices", "Product", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("productId", new { productId = ViewBag.ProductId })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <table class="table table-bordered table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th>Count</th>
+                <th>Price</th>
+                <th>Remove item</th>
+            </tr>
+        </thead>
+        <tbody id="childtable">
+            @Html.EditorFor(model => Model)
+        </tbody>
+    </table>
+    <div>
+        <input name="command" type="submit" value="Add item" class="btn btn-outline-primary" />
+    </div>
+    <div>
+        <input name="command" type="submit" value="Submit" class="btn btn-outline-success" />
+    </div>
+}
+
+
+

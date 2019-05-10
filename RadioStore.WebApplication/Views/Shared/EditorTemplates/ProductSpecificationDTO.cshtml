@@ -1,0 +1,30 @@
+﻿@using RadioStore.BusinessAccessLayer.ModelsDTO
+@model ProductSpecificationDTO
+
+@Html.HiddenFor(x => x.SpecificationId)
+@Html.HiddenFor(x => x.SpecificationTypeId)
+@Html.HiddenFor(x => x.IsNewSpec)
+@Html.HiddenFor(x => x.IsRemove)
+
+<div class="form-group d-inline">
+    @Html.EditorFor(x => x.SpecificationType, new
+            {
+                htmlAttributes = new
+                {
+                    @class = "form-control",
+                    @readonly = "readonly"
+                }
+            })
+    <div class="col-md-10 d-inline">
+        @Html.EditorFor(x => x.SpecificationValue, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   placeholder = Model?.SpecificationType,
+                   required = "required"
+               }
+           })
+        @Html.ValidationMessageFor(x => x.SpecificationValue, "", new { @class = "text-danger" })
+    </div>
+</div>

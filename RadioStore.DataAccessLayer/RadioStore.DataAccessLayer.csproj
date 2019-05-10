@@ -74,6 +74,7 @@
     <Compile Include="Concrete\PriceCountRepository.cs" />
     <Compile Include="Concrete\PriceProductRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
+    <Compile Include="Concrete\ProductSpecificationsRepository.cs" />
     <Compile Include="Concrete\SpecificationsToCategoryRepository.cs" />
     <Compile Include="Concrete\SpecificationTypesRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
